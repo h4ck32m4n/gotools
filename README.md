@@ -1,9 +1,8 @@
 # gotools #
 ## TODO ##
--
-## [Documentation](doc/) ##
+- 
 
-## [Release](release/) ##
+## [digger](digger/) ##
 
 ## Git ##
 ```bash
