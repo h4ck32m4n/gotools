@@ -2,7 +2,6 @@ package digger
 
 import (
 	"encoding/json"
-	"flag"
 	"io/ioutil"
 	"log"
 	"os"
