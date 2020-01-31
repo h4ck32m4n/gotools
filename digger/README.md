@@ -14,21 +14,29 @@ digger
 ```
 ### Usage ###
 ```golang
-// dig into $HOME
-root := digger.Dig(digger.Home())
-// pseudo tree bash
-println(root.Tree())
-// build honeypot of digged folder
-target := "./honeypot"
-// init honeypot
-digger.Build(target)
-// build honeypot
-root.Build(target, 0)
-// dig and print honeypot
-temp := digger.Dig(target)
-println(temp.Tree())
-// purge honeypot
-digger.Purge(target)
+package main
+
+import "github.com/h4ck32m4n/gotools/digger"
+
+func main() {
+    // dig and print $HOME
+    root := digger.Dig(digger.Home())
+    println(root.Tree())
+    
+    // init honeypot
+    target := "./honeypot"
+    digger.Build(target)
+    
+    // build honeypot
+    root.Build(target, 0)
+    temp := digger.Dig(target)
+    println(temp.Tree())
+    
+    // purge honeypot
+    digger.Purge(target)
+    temp := digger.Dig(target)
+    println(temp.Tree())
+}
 ```
 ## Git ##
 ```bash
