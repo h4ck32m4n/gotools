@@ -2,6 +2,7 @@ package digger
 
 import (
 	"encoding/json"
+	"flag"
 	"io/ioutil"
 	"log"
 	"os"
@@ -9,6 +10,39 @@ import (
 	"path"
 	"path/filepath"
 )
+
+func Home() string {
+	usr, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return usr.HomeDir
+}
+
+func Purge(folder string) {
+	dir, err := ioutil.ReadDir(folder)
+	if err != nil {
+		panic(err)
+	}
+	for _, d := range dir {
+		os.RemoveAll(path.Join([]string{folder, d.Name()}...))
+	}
+}
+
+func Touch(path string) {
+	file, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, 0770)
+	if err != nil {
+		panic(err)
+	}
+	file.Close()
+}
+
+func Build(path string) {
+	err := os.MkdirAll(path, 0770)
+	if err != nil {
+		panic(err)
+	}
+}
 
 type File struct {
 	Name string
