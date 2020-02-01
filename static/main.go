@@ -1,7 +1,6 @@
 package static
 
 import (
-	"os"
 	"github.com/h4ck32m4n/gotools/digger"
 )
 
