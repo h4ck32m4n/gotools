@@ -1,6 +1,9 @@
 package static
 
-import "os"
+import (
+	"os"
+	"github.com/h4ck32m4n/gotools/digger"
+)
 
 type Static struct {
 	Path    string
@@ -22,34 +25,6 @@ func Make(path string, css string, header string, body string, footer string) *S
 }
 
 func (s *Static) Build() {
-	html := CreateFile(s.Path + "/" + "index" + ".html")
-	WriteFile(html, s.Content["header"])
-	WriteFile(html, s.Content["body"])
-	WriteFile(html, s.Content["footer"])
-	CloseFile(html)
-	css := CreateFile(s.Path + "/" + "main" + ".css")
-	WriteFile(css, s.Content["css"])
-	CloseFile(css)
-}
-
-func CreateFile(path string) *os.File {
-	file, err := os.Create(path)
-	if err != nil {
-		panic(err)
-	}
-	return file
-}
-
-func WriteFile(file *os.File, data string) {
-	_, err := file.WriteString(data)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func CloseFile(file *os.File) {
-	err := file.Close()
-	if err != nil {
-		panic(err)
-	}
+	digger.TouchEcho(s.Path + "/" + "index" + ".html", s.Content["header"] + s.Content["body"] + s.Content["footer"])
+	digger.TouchEcho(s.Path + "/" + "main" + ".css", s.Content["css"])
 }
