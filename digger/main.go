@@ -28,14 +28,6 @@ func Purge(folder string) {
 	}
 }
 
-func CreateFile(path string) *os.File {
-	file, err := os.Create(path)
-	if err != nil {
-		panic(err)
-	}
-	return file
-}
-
 func Touch(path string) {
 	file, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, 0770)
 	if err != nil {
@@ -111,7 +103,7 @@ func Dig(dir string) *Folder {
 	return tree
 }
 
-func (f *Folder) Build(path string, index int) {
+func (f *Folder) Build(path string, index int, echo bool) {
 	newPath := path
 	if index == 0 {
 		newPath += "/" + f.Name
@@ -120,12 +112,16 @@ func (f *Folder) Build(path string, index int) {
 
 	for _, file := range f.Files {
 		newFile := newPath + "/" + file.Name
-		TouchEcho(newFile, newFile)
+		if echo {
+			TouchEcho(newFile, newFile)
+		} else {
+			Touch(newFile)
+		}
 	}
 
 	for folder := range f.Folders {
 		newFolder := newPath + "/" + folder
-		f.Folders[folder].Build(newFolder, index+1)
+		f.Folders[folder].Build(newFolder, index+1, echo)
 	}
 }
 
