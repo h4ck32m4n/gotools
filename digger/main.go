@@ -103,7 +103,7 @@ func Dig(dir string) *Folder {
 	return tree
 }
 
-func (f *Folder) Build(path string, index int, echo bool) {
+func (f *Folder) Build(path string, index int) {
 	newPath := path
 	if index == 0 {
 		newPath += "/" + f.Name
@@ -112,16 +112,12 @@ func (f *Folder) Build(path string, index int, echo bool) {
 
 	for _, file := range f.Files {
 		newFile := newPath + "/" + file.Name
-		if echo {
-			TouchEcho(newFile, newFile)
-		} else {
-			Touch(newFile)
-		}
+		Touch(newFile)
 	}
 
 	for folder := range f.Folders {
 		newFolder := newPath + "/" + folder
-		f.Folders[folder].Build(newFolder, index+1, echo)
+		f.Folders[folder].Build(newFolder, index+1)
 	}
 }
 

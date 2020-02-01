@@ -44,7 +44,7 @@ func main() {
 		}
 		if *diggerTarget != "" {
 			digger.Build(*diggerTarget)
-			root.Build(*diggerTarget, 0, *diggerEcho)
+			root.Build(*diggerTarget, 0)
 			if !*diggerSilent {
 				temp := digger.Dig(*diggerTarget)
 				println(temp.Tree())
