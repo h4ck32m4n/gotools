@@ -13,7 +13,7 @@ func main() {
 	diggerCmd := flag.NewFlagSet("digger", flag.ExitOnError)
 	diggerSilent := diggerCmd.Bool("silent", false, "silent")
 	diggerPurge := diggerCmd.Bool("purge", false, "purge folder /!\\ warning")
-	diggerEcho := diggerCmd.Bool("echo", true, "write path in touched file")
+	// diggerEcho := diggerCmd.String("echo", "", "write string in file")
 	diggerFolder := diggerCmd.String("folder", digger.Home(), "folder to dig")
 	diggerTarget := diggerCmd.String("target", "", "target where to clone digged folder")
 
@@ -32,7 +32,7 @@ func main() {
 		if !*diggerSilent {
 			fmt.Println("subcommand 'digger'")
 			fmt.Println("  silent:", *diggerSilent)
-			fmt.Println("  echo:", *diggerEcho)
+			// fmt.Println("  echo:", *diggerEcho)
 			fmt.Println("  purge:", *diggerPurge)
 			fmt.Println("  folder:", *diggerFolder)
 			fmt.Println("  target:", *diggerTarget)
